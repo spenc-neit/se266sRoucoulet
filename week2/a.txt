@@ -1,0 +1,76 @@
+Background
+A small Healthy Living clinic has asked us to create a web application that tracks important patient physical characteristics and determines their Body Mass Index (BMI).
+
+Application Requirements
+Create a basic patient intake form with the following fields:
+
+First name
+Last Name
+Married (yes/no)
+Birth date
+Height
+Weight
+When the form is submitted, you must validate for:
+
+First name cannot be an empty string
+Last name cannot be an empty string
+A selection must be made for the Married field
+Birth date must be a valid date
+Height must be a valid number 
+(No negative heights or mega-giants)
+Weight must be a valid number
+(No negative weights or unrealistically heavy weights)
+Values for each of the form fields must “stick” when you submit the form.
+
+Once the form is submitted without errors, display a confirmation page listing all the fields above along with the following:
+
+Patient Age
+Patient’s BMI with one decimal value
+Classification of BMI
+Helpful Information and Functions
+The Body Mass Index (BMI) is calculated as follows:
+
+Weight in kg / (Height in meters)2
+See also the NIH NHLBI information pageLinks to an external site..
+
+Here are some important conversions:
+
+kg = pounds / 2.20462
+ft = 12 inches
+1 inch = 2.54 cm = 0.0254 m
+So, if I am 6" 1' and I weigh 180 pounds, my BMI is calculated as follows:
+
+Height: 6" 1'  = 6 * 12 + 1 = 73 inches = 73 * 0.0254 = 1.8542 m
+Weight: 180 pounds = 180 / 2.20462 = 81.64 kg
+BMI: 81.64 / (1.8542 * 1.8542) = 23.7
+The classification of the BMI is done as follows:
+
+BMI          Classification
+---------------------------
+< 18.5       underweight
+18.5–24.9    normal weight
+25.0–29.9    overweight
+>= 30        obese
+
+
+Here are some functions that may help:
+
+function age ($bdate) {
+   $date = new DateTime($bdate);
+   $now = new DateTime();
+   $interval = $now->diff($date);
+   return $interval->y;
+}
+
+function isDate($dt) {
+   $date_arr  = explode('-', $dob);
+   return checkdate($date_arr[1], $date_arr[2], $date_arr[0]);
+}
+
+function bmi ($ft, $inch, $weight) {
+   // you will need to write
+}
+
+function bmiDescription ($bmi) {
+   // you will need to write
+}
