@@ -12,14 +12,14 @@ Height
 Weight
 When the form is submitted, you must validate for:
 
-First name cannot be an empty string
-Last name cannot be an empty string
-A selection must be made for the Married field
-Birth date must be a valid date
-Height must be a valid number 
-(No negative heights or mega-giants)
-Weight must be a valid number
-(No negative weights or unrealistically heavy weights)
+[x] First name cannot be an empty string
+[x] Last name cannot be an empty string
+[x] A selection must be made for the Married field
+[x] Birth date must be a valid date
+[x] Height must be a valid number 
+[ ]  (No negative heights or mega-giants)
+[x] Weight must be a valid number
+[ ]  (No negative weights or unrealistically heavy weights)
 Values for each of the form fields must “stick” when you submit the form.
 
 Once the form is submitted without errors, display a confirmation page listing all the fields above along with the following:
