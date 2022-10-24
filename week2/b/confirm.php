@@ -7,6 +7,7 @@
     <title>Confirmation Page</title>
 </head>
 <body>
+    <!--this page only appears once the user sends the form with no errors-->
     <h1>Patient Intake Form</h1>
     <h3>--Healthy Living Clinic--</h3>
     <dl>
@@ -16,12 +17,15 @@
         <dd><?= $marriedInput ?></dd>
         <dt><b>Date of Birth:</b></dt>
         <dd><?= $dobInput ?></dd>
+        <dt><b>Age:</b></dt>
+        <dd><?= $age ?></dd>
         <dt><b>Weight:</b></dt>
-        <dd><?= $weightInput ?></dd>
+        <dd><?= "$weightInput lbs" ?></dd>
         <dt><b>Height:</b></dt>
-        <dd><?= $fheightInput . `' ` . $iheightInput . `"` ?></dd>
+        <dd><?= "$fheightInput ft $iheightInput in" ?></dd>
         <dt><b>BMI:</b></dt>
         <dd><?= $bmi . " - " . $classification ?></dd>
     </dl>
+    <!--print the required information and results, with the headers in bold-->
 </body>
 </html>

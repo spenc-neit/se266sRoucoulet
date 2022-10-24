@@ -28,6 +28,7 @@
             <tr>
                 <td style="text-align:right;">Name:</td>
                 <td><input type="text" name="fname" placeholder="First name" value="<?= $fnameInput ?>" /> <input type="text" name="lname" placeholder="Last name" value="<?= $lnameInput ?>" /></td>
+                <!--use variables for input value to make the user's input stick when submitting form-->
             </tr>
 
             <?php if ($marriedInput == "yes"): ?>
@@ -52,6 +53,7 @@
                 </tr>
 
             <?php endif; ?>
+            <!--use an if/ifelse/else loop to check the value of $marriedinput to know which option (if any) to select after the form gets submitted-->
             
             <tr>
                 <td style="text-align:right;">Date of birth:</td>

@@ -48,8 +48,8 @@
     <?php       
         $file = basename($_SERVER['PHP_SELF']);
         $mod_date=date("F d Y h:i:s A", filemtime($file));
-        echo "File last updated $mod_date ";
-        //date.timezone = "Europe/Athens"
+        $test = new DateTime($mod_date, new DateTimeZone('America/New_York'));
+        echo "File last updated " . date_format($test, "F d Y h:i:s A");
     ?>
     </footer>
 

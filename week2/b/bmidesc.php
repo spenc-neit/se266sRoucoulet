@@ -1,5 +1,5 @@
 <?php
-function bmidesc($bmi){
+function bmidesc($bmi){//receive pre-calculated bmi
     if($bmi >= 30) {
         return "Obese";
     }
@@ -12,5 +12,6 @@ function bmidesc($bmi){
     else{
         return "Underweight";
     }
+    //return a string depending on how large the number is
     
 }
