@@ -3,7 +3,7 @@
 require_once "bmi.php";
 require_once "bmidesc.php";
 require_once "age.php";
-require_once "indexfront.php";
+// require_once "indexfront.php";
 
 $error = "";
 $fnameInput = "";
@@ -73,5 +73,6 @@ if(isset($_POST['submitbtn'])){
     // echo var_dump($_POST);
     // echo "</pre>";
 }
+
 
 ?>

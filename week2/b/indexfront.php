@@ -1,4 +1,4 @@
-<?php require "index.php"; ?>
+<?php include "index.php"; ?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -19,7 +19,7 @@
 <h3>--Healthy Living Clinic--</h3>
 
 
-<form method="post" action="index.php">
+<form method="post" action="indexfront.php">
 
 
 

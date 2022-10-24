@@ -10,17 +10,17 @@
     <h1>Patient Intake Form</h1>
     <h3>--Healthy Living Clinic--</h3>
     <dl>
-        <dt>Name:</dt>
-        <dd><?= $fnameInput . $lnameInput ?></dd>
-        <dt>Married:</dt>
+        <dt><b>Name:</b></dt>
+        <dd><?= $fnameInput . " " . $lnameInput ?></dd>
+        <dt><b>Married:</b></dt>
         <dd><?= $marriedInput ?></dd>
-        <dt>Date of Birth:</dt>
+        <dt><b>Date of Birth:</b></dt>
         <dd><?= $dobInput ?></dd>
-        <dt>Weight:</dt>
+        <dt><b>Weight:</b></dt>
         <dd><?= $weightInput ?></dd>
-        <dt>Height:</dt>
+        <dt><b>Height:</b></dt>
         <dd><?= $fheightInput . `' ` . $iheightInput . `"` ?></dd>
-        <dt>BMI:</dt>
+        <dt><b>BMI:</b></dt>
         <dd><?= $bmi . " - " . $classification ?></dd>
     </dl>
 </body>
