@@ -35,7 +35,7 @@
     <ul>
         <li><a href="week1/">Week 1 - Mini Tasks C-G</a></li>
         <li><a href="week2/b/indexfront.php">Week 2 - Patient Intake Form</a></li>
-        <li><a href="#">Week 3</a></li>
+        <li><a href="week3/">Week 3 - ATM Simulation</a></li>
         <li><a href="#">Week 4</a></li>
         <li><a href="#">Week 5</a></li>
         <li><a href="#">Week 6</a></li>
@@ -46,6 +46,7 @@
     <hr />
     <footer>
     <?php       
+        date_default_timezone_set("America/New_York");
         $file = basename($_SERVER['PHP_SELF']);
         $mod_date=date("F d Y h:i:s A", filemtime($file));
         $test = new DateTime($mod_date, new DateTimeZone('America/New_York'));
