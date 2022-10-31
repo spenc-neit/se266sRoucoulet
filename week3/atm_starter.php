@@ -2,18 +2,53 @@
 include "checking.php";
 include "savings.php";
 
-$checking = new CheckingAccount ('C123', 1000, '12-20-2019');
-$savings = new SavingsAccount('S123', 5000, '03-20-2020'); 
+$checking = "";
+$savings = "";
+
+// $checking = new CheckingAccount ('C123', 1000, '12-20-2019');
+// $savings = new SavingsAccount('S123', 5000, '03-20-2020'); 
+
+    // if (empty($_POST))
+    // {
+    //     $checking = new CheckingAccount ('C123', 1000, '12-20-2019');
+    //     $savings = new SavingsAccount('S123', 5000, '03-20-2020'); 
+    // }
+
 
     if (isset ($_POST['withdrawChecking'])) 
     {
-        echo "I pressed the checking withdrawal button | ";
-        echo filter_input(INPUT_POST, 'checkingWithdrawAmount', FILTER_VALIDATE_FLOAT);
-        
-        $checking->withdrawal(filter_input(INPUT_POST, 'checkingWithdrawAmount', FILTER_VALIDATE_FLOAT));
-        
-        // echo (float)$checking->getBalance();
 
+        echo "<pre style='background-color:blue;color:white;'>";
+        var_dump($_POST);
+        echo "</pre>";
+
+        $checking = new CheckingAccount('C123', filter_input(INPUT_POST, 'checkingBalance', FILTER_VALIDATE_FLOAT), '12-20-2019');
+        
+
+        echo "I pressed the checking withdrawal button | "; //testing
+        echo " input is " . filter_input(INPUT_POST, 'checkingWithdrawAmount', FILTER_VALIDATE_FLOAT) . " | "; //testing
+
+        
+        if($checking->withdrawal(filter_input(INPUT_POST, 'checkingWithdrawAmount', FILTER_VALIDATE_FLOAT))){
+            $balance = filter_input(INPUT_POST, 'checkingBalance', FILTER_VALIDATE_FLOAT);
+            $withdraw = filter_input(INPUT_POST, 'checkingWithdrawAmount', FILTER_VALIDATE_FLOAT);
+            $nb = $balance - $withdraw;
+            $_POST['checkingBalance'] = $nb;
+            $checking = new CheckingAccount ('C123', $_POST['checkingBalance'], '12-20-2019');
+        }
+        // $newBalance = $checking->getBalance();
+        // echo " new balance is $newBalance | ";
+
+        //echo " balance before obj creation is " . $checking->getBalance(); //testing
+        echo " | new balance before obj is $nb | ";
+
+        
+        //$checking->setBalance($nb);
+
+        echo " | balance after obj creation is " . $checking->getBalance(); //testing
+        //echo " | end of w/d c"; //testing
+
+        
     } 
     else if (isset ($_POST['depositChecking'])) 
     {
@@ -41,7 +76,15 @@ $savings = new SavingsAccount('S123', 5000, '03-20-2020');
         echo filter_input(INPUT_POST, 'savingsDepositAmount', FILTER_VALIDATE_FLOAT);
         echo " ";
         echo $savings->getBalance();
-    } 
+    } else {
+        $checking = new CheckingAccount ('C123', 1000, '12-20-2019');
+        $savings = new SavingsAccount('S123', 5000, '03-20-2020');
+        echo "new page load (hopefully)";
+    }
+    
+    echo "<pre style='background-color:indianred;'>";
+    var_dump($_POST);
+    echo "</pre>";
      
 ?>
 

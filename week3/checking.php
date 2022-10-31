@@ -16,13 +16,17 @@
             if(($currentBal - $amount) < self::OVERDRAW_LIMIT){
                 return FALSE;
             } else {
-                $this->balance -= $amount;
-                echo " " . $this->balance;
+                //$this->balance -= $amount;
+                //echo " " . $this->balance;
                 return TRUE;
                 
             }
 
         } // end withdrawal
+
+        public function setBalance($value){
+            $this->balance = $value;
+        }
 
         //freebie. I am giving you this code.
         public function getAccountDetails() 
@@ -38,7 +42,7 @@
 // The code below runs everytime this class loads and 
 // should be commented out after testing.
     
-    $checking = new CheckingAccount ('C123', 1000, '12-20-2019');
+    //$checking = new CheckingAccount ('C123', 1000, '12-20-2019');
     // $checking->withdrawal(200);
     // $checking->deposit(500);
     
