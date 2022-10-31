@@ -1,6 +1,6 @@
 <?php
  
- 	include ("./account.php");
+ 	include_once ("./account.php");
  
     class CheckingAccount extends Account 
     {
@@ -9,6 +9,19 @@
         public function withdrawal($amount) 
         {
             // write code here. Return true if withdrawal goes through; false otherwise
+            $currentBal = Parent::getBalance();
+            // echo "currentBal = $currentBal currentbal type = " . gettype($currentBal) . " | ";
+            // echo "amount = $amount amount type = " . gettype($amount);
+            // echo $currentBal - $amount;
+            if(($currentBal - $amount) < self::OVERDRAW_LIMIT){
+                return FALSE;
+            } else {
+                $this->balance -= $amount;
+                echo " " . $this->balance;
+                return TRUE;
+                
+            }
+
         } // end withdrawal
 
         //freebie. I am giving you this code.
@@ -26,10 +39,10 @@
 // should be commented out after testing.
     
     $checking = new CheckingAccount ('C123', 1000, '12-20-2019');
-    $checking->withdrawal(200);
-    $checking->deposit(500);
+    // $checking->withdrawal(200);
+    // $checking->deposit(500);
     
-    echo $checking->getAccountDetails();
-    echo $checking->getStartDate();
+    // echo $checking->getAccountDetails();
+    // echo $checking->getStartDate();
     
 ?>
