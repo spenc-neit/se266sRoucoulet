@@ -1,20 +1,27 @@
 <?php
 
 include_once ("./account.php");
- 
-    class SavingsAccount extends Account 
+//include once so as to not stack with checking.php calling the same file
+
+    class SavingsAccount extends Account //savingsaccount inherits account
     {
 
         public function withdrawal($amount) 
         {
             // write code here. Return true if withdrawal goes through; false otherwise
+
             $currentBal = Parent::getBalance();
+            //retrieve the current balance of the account before calculating anything
+
             if($currentBal - $amount < 0){
                 return FALSE;
-            } else {
+                //if the withdrawal would cause the balance to zip below zero, do nothing
+            } 
+            else 
+            {
                 $this->balance -= $amount;
-                echo " " . $this->balance;
                 return TRUE;
+                //if the withdrawal leaves the balance above zero, perform the withdrawal
             }
 
         } //end withdrawal
@@ -25,6 +32,7 @@ include_once ("./account.php");
             $accountDetails .= parent::getAccountDetails();
             
             return $accountDetails;
+            //return account details (grabbed from parent class's function) with a header
         } //end getAccountDetails
         
     } // end Savings

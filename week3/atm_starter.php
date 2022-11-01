@@ -1,91 +1,52 @@
 <?php
 include "checking.php";
 include "savings.php";
+//include checking and savings class files
+include "postcheck.php";
+//include function to check if the page is a POST
 
-$checking = "";
-$savings = "";
+    if(isPostRequest()){
+        $cBalance = filter_input(INPUT_POST, 'checkingBalance', FILTER_VALIDATE_FLOAT);
+        $cDate = filter_input(INPUT_POST, 'checkingDate');
+        $cID = filter_input(INPUT_POST, 'checkingAccountId');
+        $sBalance = filter_input(INPUT_POST, 'savingsBalance', FILTER_VALIDATE_FLOAT);
+        $sDate = filter_input(INPUT_POST, 'savingsDate');
+        $sID = filter_input(INPUT_POST, 'savingsAccountId');
+        //if the page IS a POST, create variables for accounts info using info passed along by the form
+    } else {
+        $cBalance = 1001;
+        $cDate = '12-20-2019';
+        $cID = 'C123';
+        $sBalance = 5000;
+        $sDate = '3-20-2020';
+        $sID = 'S123';
+        //if the page is NOT a post, create variables for accounts info using default values
+    }
 
-// $checking = new CheckingAccount ('C123', 1000, '12-20-2019');
-// $savings = new SavingsAccount('S123', 5000, '03-20-2020'); 
-
-    // if (empty($_POST))
-    // {
-    //     $checking = new CheckingAccount ('C123', 1000, '12-20-2019');
-    //     $savings = new SavingsAccount('S123', 5000, '03-20-2020'); 
-    // }
-
+    $checking = new CheckingAccount($cID, $cBalance, $cDate);
+    $savings = new SavingsAccount($sID, $sBalance, $sDate);
+    //create instances of account objects, using the variables defined in the above if statement
 
     if (isset ($_POST['withdrawChecking'])) 
     {
-
-        echo "<pre style='background-color:blue;color:white;'>";
-        var_dump($_POST);
-        echo "</pre>";
-
-        $checking = new CheckingAccount('C123', filter_input(INPUT_POST, 'checkingBalance', FILTER_VALIDATE_FLOAT), '12-20-2019');
-        
-
-        echo "I pressed the checking withdrawal button | "; //testing
-        echo " input is " . filter_input(INPUT_POST, 'checkingWithdrawAmount', FILTER_VALIDATE_FLOAT) . " | "; //testing
-
-        
-        if($checking->withdrawal(filter_input(INPUT_POST, 'checkingWithdrawAmount', FILTER_VALIDATE_FLOAT))){
-            $balance = filter_input(INPUT_POST, 'checkingBalance', FILTER_VALIDATE_FLOAT);
-            $withdraw = filter_input(INPUT_POST, 'checkingWithdrawAmount', FILTER_VALIDATE_FLOAT);
-            $nb = $balance - $withdraw;
-            $_POST['checkingBalance'] = $nb;
-            $checking = new CheckingAccount ('C123', $_POST['checkingBalance'], '12-20-2019');
-        }
-        // $newBalance = $checking->getBalance();
-        // echo " new balance is $newBalance | ";
-
-        //echo " balance before obj creation is " . $checking->getBalance(); //testing
-        echo " | new balance before obj is $nb | ";
-
-        
-        //$checking->setBalance($nb);
-
-        echo " | balance after obj creation is " . $checking->getBalance(); //testing
-        //echo " | end of w/d c"; //testing
-
-        
+        $checking->withdrawal(filter_input(INPUT_POST, 'checkingWithdrawAmount', FILTER_VALIDATE_FLOAT));
     } 
     else if (isset ($_POST['depositChecking'])) 
-    {
-        echo "I pressed the checking deposit button | ";
-        
+    {   
         $checking->deposit(filter_input(INPUT_POST, 'checkingDepositAmount', FILTER_VALIDATE_FLOAT));
-        
-        echo filter_input(INPUT_POST, 'checkingWithdrawAmount', FILTER_VALIDATE_FLOAT);
-        echo $checking->getBalance();
-        //include "checking.php";
     } 
     else if (isset ($_POST['withdrawSavings'])) 
     {
-        echo "I pressed the savings withdrawal button | ";
-        echo filter_input(INPUT_POST, 'savingsWithdrawAmount', FILTER_VALIDATE_FLOAT);
-        
         $savings->withdrawal(filter_input(INPUT_POST, 'savingsWithdrawAmount', FILTER_VALIDATE_FLOAT));
-        
     } 
     else if (isset ($_POST['depositSavings'])) 
     {
-        echo "I pressed the savings deposit button | ";
-        //include "savings.php";
         $savings->deposit(filter_input(INPUT_POST, 'savingsDepositAmount', FILTER_VALIDATE_FLOAT));
-        echo filter_input(INPUT_POST, 'savingsDepositAmount', FILTER_VALIDATE_FLOAT);
-        echo " ";
-        echo $savings->getBalance();
-    } else {
-        $checking = new CheckingAccount ('C123', 1000, '12-20-2019');
-        $savings = new SavingsAccount('S123', 5000, '03-20-2020');
-        echo "new page load (hopefully)";
     }
-    
-    echo "<pre style='background-color:indianred;'>";
-    var_dump($_POST);
-    echo "</pre>";
-     
+    //depending on what button the user presses (determined by checking POST for the values passed by the buttons),
+    //perform the corresponding function on the corresponding account,
+        //using the user's input as the amount passed into the function
+      
 ?>
 
 <!DOCTYPE html>
@@ -126,12 +87,13 @@ $savings = "";
 
     <form method="post" >
        
-        <input type="hidden" name="checkingAccountId" value="C123" />
-        <input type="hidden" name="checkingDate" value="12-20-2019" />
-        <input type="hidden" name="checkingBalance" value="1000" />
-        <input type="hidden" name="savingsAccountId" value="S123" />
-        <input type="hidden" name="savingsDate" value="03-20-2020" />
-        <input type="hidden" name="savingsBalance" value="5000" />
+        <input type="hidden" name="checkingAccountId" value="<?=$checking->getAccountID()?>" />
+        <input type="hidden" name="checkingDate" value="<?=$checking->getStartDate()?>" />
+        <input type="hidden" name="checkingBalance" value="<?=$checking->getBalance()?>" />
+        <input type="hidden" name="savingsAccountId" value="<?=$savings->getAccountID()?>" />
+        <input type="hidden" name="savingsDate" value="<?=$savings->getStartDate()?>" />
+        <input type="hidden" name="savingsBalance" value="<?=$savings->getBalance()?>" />
+        <!--take the values for each input field from the objects' stored values-->
         
     <h1>ATM</h1>
         <div class="wrapper">
@@ -140,9 +102,10 @@ $savings = "";
               
                     <div class="accountInner">
                         <h2>Checking</h2>
-                        <p>ID: <?= $checking->getAccountID() ?></p>
-                        <p>Balance: <?= $checking->getBalance() ?></p>
-                        <p>Start Date: <?= $checking->getStartDate() ?></p>
+                        <label for="checkingAccountId">ID: <?= $checking->getAccountID() ?></label><br />
+                        <label for="checkingBalance">Balance: <?= $checking->getBalance() ?></label><br />
+                        <label for="checkingDate">Start Date: <?= $checking->getStartDate() ?></label>
+                        <!--display the values stored in the checking object-->
                     </div>
                     
                     <div class="accountInner">
@@ -160,9 +123,10 @@ $savings = "";
 
                     <div class="accountInner">
                         <h2>Savings</h2>
-                        <p>ID: <?= $savings->getAccountID() ?></p>
-                        <p>Balance: <?= $savings->getBalance() ?></p>
-                        <p>Start Date: <?= $savings->getStartDate() ?></p>
+                        <label for="savingsAccountID">ID: <?= $savings->getAccountID() ?></label><br />
+                        <label for="savingsBalance">Balance: <?= $savings->getBalance() ?></label><br />
+                        <label for="savingsDate">Start Date: <?= $savings->getStartDate() ?></label>
+                        <!--display the values stored in the savings object-->
                     </div>
                     
                     <div class="accountInner">
