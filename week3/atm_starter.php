@@ -14,7 +14,7 @@ include "postcheck.php";
         $sID = filter_input(INPUT_POST, 'savingsAccountId');
         //if the page IS a POST, create variables for accounts info using info passed along by the form
     } else {
-        $cBalance = 1001;
+        $cBalance = 1000;
         $cDate = '12-20-2019';
         $cID = 'C123';
         $sBalance = 5000;
