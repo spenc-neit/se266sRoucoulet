@@ -37,11 +37,9 @@
         <li><a href="week2/b/indexfront.php">Week 2 - Patient Intake Form</a></li>
         <li><a href="week3/atm_starter.php">Week 3 - ATM Simulation</a></li>
         <li><a href="week4">Week 4 - Patient CRUD</a></li>
-        <li><a href="#">Week 5</a></li>
-        <li><a href="#">Week 6</a></li>
+        <li><a href="week6">Week 6 - Patient Search & Sessions</a></li>
         <li><a href="#">Week 7</a></li>
         <li><a href="#">Week 8</a></li>
-        <li><a href="#">Week 9</a></li>
     </ul>
     <hr />
     <footer>
