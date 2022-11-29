@@ -1,14 +1,26 @@
 <?php 
-include_once __DIR__ . 'postcheck.php';
+    include_once __DIR__ . '/postcheck.php';
+    include_once __DIR__ . '/models/mdl_patients.php';
 
 session_start();
 
 if(isPostRequest()){
-    $username = filter_input($_POST, 'inputUN');
-    $password = filter_input($_POST, 'inputPW');
-
+    $username = filter_input(INPUT_POST, 'inputUN');
+    $password = filter_input(INPUT_POST, 'inputPW');
     
+    $search = getAUser($username);
 
+    $salt = $search['salt'];
+    $enc = $search['encPass'];
+
+    if(sha1($password.$salt) == $enc){
+        $_SESSION['username'] = $username;
+        $_SESSION['loggedIn'] = TRUE;
+        header('Location: index.php');
+    } else {
+        $_SESSION['loggedIn'] = FALSE;
+    }
+    
 }
 
 ?>
@@ -27,16 +39,23 @@ if(isPostRequest()){
 <body>
 
 <div style='margin:auto;width:50%;'>
+
+    <?php if(isPostRequest()):?>
+        <?php if(!$_SESSION['loggedIn']):?>
+            <div class="alert alert-danger" role="alert">The username was not found, or the password was incorrect.</div>
+        <?php endif;?>
+    <?php endif;?>
+
     <h3 class='my-3'>Login</h3>
 
     <form method='post' action='login.php'>
         <div class="mb-3">
             <label for="inputUN" class="form-label">Username</label>
-            <input type="text" class="form-control" id="inputUN">
+            <input type="text" class="form-control" id="inputUN" name='inputUN'>
         </div>
         <div class="mb-3">
             <label for="inputPW" class="form-label">Password</label>
-            <input type="text" class="form-control" id="inputPW">
+            <input type="text" class="form-control" id="inputPW" name='inputPW'>
         </div>
         <button type="submit" class="btn btn-primary">Submit</button>
     </form>

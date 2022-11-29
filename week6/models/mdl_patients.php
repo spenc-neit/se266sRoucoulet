@@ -102,14 +102,17 @@
         global $db;
 
         $result = [];
-        $stmt = $db->prepare("SELECT id, username, encPW FROM patients WHERE id=:bID");
+        $stmt = $db->prepare("SELECT userID, username, encPass, salt FROM users WHERE username=:bUN");
 
         $binds = array(
-            ":bID" => $id
+            ":bUN" => $un
         );
 
         if ($stmt->execute($binds) && $stmt->rowCount() > 0) {
             $results = $stmt->fetch(PDO::FETCH_ASSOC);
+        }
+        else{
+            $results = "No user with that name found.";
         }
 
         return($results);
