@@ -1,6 +1,8 @@
 <?php 
-    include_once __DIR__ . '/postcheck.php';
-    include_once __DIR__ . '/models/mdl_patients.php';
+
+include_once __DIR__ . '/postcheck.php';
+include_once __DIR__ . '/models/mdl_patients.php';
+
 
 session_start();
 
@@ -10,16 +12,31 @@ if(isPostRequest()){
     
     $search = getAUser($username);
 
-    $salt = $search['salt'];
-    $enc = $search['encPass'];
+    if ($search != "No user with that name found."){
+        $salt = $search['salt'];
+        $enc = $search['encPass'];
 
-    if(sha1($password.$salt) == $enc){
-        $_SESSION['username'] = $username;
-        $_SESSION['loggedIn'] = TRUE;
-        header('Location: index.php');
+        if(sha1($password.$salt) == $enc){
+            $_SESSION['username'] = $username;
+            $_SESSION['loggedIn'] = TRUE;
+            header('Location: index.php');
+        } else {
+            $_SESSION['loggedIn'] = FALSE;
+        }
+
     } else {
         $_SESSION['loggedIn'] = FALSE;
     }
+
+    
+
+    // if(sha1($password.$salt) == $enc){
+    //     $_SESSION['username'] = $username;
+    //     $_SESSION['loggedIn'] = TRUE;
+    //     header('Location: index.php');
+    // } else {
+    //     $_SESSION['loggedIn'] = FALSE;
+    // }
     
 }
 
@@ -42,7 +59,7 @@ if(isPostRequest()){
 
     <?php if(isPostRequest()):?>
         <?php if(!$_SESSION['loggedIn']):?>
-            <div class="alert alert-danger" role="alert">The username was not found, or the password was incorrect.</div>
+            <div class="alert alert-danger mt-2" role="alert">The username was not found, or the password was incorrect.</div>
         <?php endif;?>
     <?php endif;?>
 

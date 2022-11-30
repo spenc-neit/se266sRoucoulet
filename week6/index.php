@@ -1,4 +1,10 @@
 <?php
+session_start();
+
+    if($_SESSION['loggedIn'] == FALSE OR !isset($_SESSION['loggedIn'])){
+        header('Location: login.php');
+    }
+
     include __DIR__ . '/models/mdl_patients.php';
     //include data model file
     include __DIR__ . '/postcheck.php';
