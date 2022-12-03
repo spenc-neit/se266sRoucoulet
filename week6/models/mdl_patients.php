@@ -2,14 +2,33 @@
 
     include (__DIR__ . '/db.php');
 
-    function getPatients(){
+    function getPatients($fName, $lName, $mar){
         global $db;
 
         $results = [];
 
-        $stmt = $db->prepare("SELECT id, patientFirstName, patientLastName, patientMarried, patientBirthDate FROM patients ORDER BY patientLastName");
+        $sql = "SELECT id, patientFirstName, patientLastName, patientMarried, patientBirthDate FROM patients WHERE 0=0";
 
-        if ($stmt->execute() && $stmt->rowCount() > 0 ){
+        $binds = [];
+
+        if ($fName != ""){
+            $sql .= " AND patientFirstName LIKE :bfName";
+            $binds['bfName'] = '%' . $fName . '%';
+        }
+        if ($lName != ""){
+            $sql .= " AND patientFirstName LIKE :blName";
+            $binds['blName'] = '%' . $lName . '%';
+        }
+        // if ($fName != ""){
+        //     $sql .= " AND patientFirstName LIKE :bfName";
+        //     $binds['bfName'] = '%' . $fName . '%';
+        // }
+
+
+        $stmt = $db->prepare($sql);
+
+
+        if ($stmt->execute($binds) && $stmt->rowCount() > 0 ){
             $results = $stmt->fetchall(PDO::FETCH_ASSOC);
         }
 

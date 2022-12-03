@@ -97,14 +97,14 @@
         <div class="form-group">
             <label class='control-label col-sm-2' for='patientFirstName'>First name:</label>
             <div class='col-sm-10'>
-                <input type='text' class='form-control' id='patientFirstName' placeholder="Enter patient's first name" name='patientFirstName' value='<?= $fName ?>'>
+                <input type='text' class='form-control' id='patientFirstName' placeholder="Enter patient's first name" name='patientFirstName' value='<?= $fName ?>' required>
             </div>
         </div>
 
         <div class="form-group">
             <label class='control-label col-sm-2' for='patientLastName'>Last name:</label>
             <div class='col-sm-10'>
-                <input type='text' class='form-control' id='patientLastName' placeholder="Enter patient's last name" name='patientLastName' value='<?= $lName ?>'>
+                <input type='text' class='form-control' id='patientLastName' placeholder="Enter patient's last name" name='patientLastName' value='<?= $lName ?>' required>
             </div>
         </div>
 
@@ -127,7 +127,7 @@
         <div class="form-group">
             <label class='control-label col-sm-2' for='patientBirthDate'>Date of birth:</label>
             <div class='col-sm-10'>
-                <input type="date" name="patientBirthDate" value='<?= $dob ?>'>
+                <input type="date" name="patientBirthDate" value='<?= $dob ?>' required>
             </div>
         </div>
 

@@ -10,13 +10,26 @@ session_start();
     include __DIR__ . '/postcheck.php';
     //include file w/ function to check for POST method
 
+    $searchFirst = "";
+    $searchLast = "";
+    $searchMar = "";
+
+
     if(isPostRequest()){
-        $id = filter_input(INPUT_POST, 'patientID');
-        deletePatient($id);
+
+
+
+        
+        
+        if(isset($_POST['patientID'])){
+            $id = filter_input(INPUT_POST, 'patientID');
+            deletePatient($id);
+        }
+
     }//if the page is a post request, retrieve ID and delete the record of the corresponding id
         //since the only time POST comes through for this page is when the user wants to delete a record
 
-    $patients = getPatients();
+    $patients = getPatients("", "", "");
     //fetch all records in the table and store in var
 ?>
 
@@ -33,6 +46,14 @@ session_start();
     <div class="container">
         <div class="col-sm-offset-2 col-sm-10">
             <h1>Patients</h1>
+
+            <table>
+                <tr>
+                    <td><input type="text" placeholder="First name"></td>
+                    <td><input type="text" placeholder="Last name"></td>
+                    <td><button type="submit">Submit</button>
+                </tr>
+            </table>
 
             <table class='table table-striped'>
 
