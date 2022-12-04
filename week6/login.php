@@ -1,42 +1,47 @@
 <?php 
 
 include_once __DIR__ . '/postcheck.php';
+    //include data model file
 include_once __DIR__ . '/models/mdl_patients.php';
+    //include file w/ function to check for POST method
 
 
-session_start();
+session_start(); //start session
 
-if(isPostRequest()){
-    $username = filter_input(INPUT_POST, 'inputUN');
-    $password = filter_input(INPUT_POST, 'inputPW');
+if(isPostRequest()){ //if there is a post request
+
+    $username = filter_input(INPUT_POST, 'inputUN'); 
+        //take user's inputted username from POST
+    $password = filter_input(INPUT_POST, 'inputPW'); 
+        //take user's inputted password from POST
     
-    $search = getAUser($username);
+    $search = getAUser($username); 
+        //find the user information that corresponds to the inputted username
 
-    if ($search != "No user with that name found."){
+    if ($search != "No user with that name found."){ //if the search did not come up empty
         $salt = $search['salt'];
-        $enc = $search['encPass'];
+            //store the user's salt value
+        $enc = $search['encPass']; 
+            //store the user's encrypted password + salt
 
-        if(sha1($password.$salt) == $enc){
-            $_SESSION['username'] = $username;
-            $_SESSION['loggedIn'] = TRUE;
-            header('Location: index.php');
-        } else {
-            $_SESSION['loggedIn'] = FALSE;
+        if(sha1($password.$salt) == $enc){ //if the entered password + salt, when run through sha1, equals the stored encrypted password
+            $_SESSION['username'] = $username; 
+                //store the username in session
+            $_SESSION['loggedIn'] = TRUE; 
+                //store a value clarifying that the user IS logged in
+            
+            header('Location: index.php'); 
+                //redirect to index
+
+        } else { //if the entered password + salt, when run through sha1, does not equal the stored encrypted pw+salt
+            $_SESSION['loggedIn'] = FALSE; 
+                //set a value clarifying the user is NOT logged in
         }
 
-    } else {
+    } else { 
         $_SESSION['loggedIn'] = FALSE;
+            //set a value clarifying the user is NOT logged in
     }
-
-    
-
-    // if(sha1($password.$salt) == $enc){
-    //     $_SESSION['username'] = $username;
-    //     $_SESSION['loggedIn'] = TRUE;
-    //     header('Location: index.php');
-    // } else {
-    //     $_SESSION['loggedIn'] = FALSE;
-    // }
     
 }
 
@@ -57,9 +62,9 @@ if(isPostRequest()){
 
 <div style='margin:auto;width:50%;'>
 
-    <?php if(isPostRequest()):?>
-        <?php if(!$_SESSION['loggedIn']):?>
-            <div class="alert alert-danger mt-2" role="alert">The username was not found, or the password was incorrect.</div>
+    <?php if(isPostRequest()):?> <!-- if the page has a post request -->
+        <?php if(!$_SESSION['loggedIn']):?> <!-- if the user is explicitly not logged in when the page loads -->
+            <div class="alert alert-danger mt-2" role="alert">The username was not found, or the password was incorrect.</div> <!-- display error message -->
         <?php endif;?>
     <?php endif;?>
 
@@ -72,7 +77,7 @@ if(isPostRequest()){
         </div>
         <div class="mb-3">
             <label for="inputPW" class="form-label">Password</label>
-            <input type="text" class="form-control" id="inputPW" name='inputPW'>
+            <input type="password" class="form-control" id="inputPW" name='inputPW'>
         </div>
         <button type="submit" class="btn btn-primary">Submit</button>
     </form>

@@ -1,8 +1,9 @@
 <?php
-session_start();
+session_start(); //open session
 
-    if($_SESSION['loggedIn'] == FALSE OR !isset($_SESSION['loggedIn'])){
-        header('Location: login.php');
+    if($_SESSION['loggedIn'] == FALSE OR !isset($_SESSION['loggedIn'])){ //if loggedIn is false or blank (if user is not logged in)
+        header('Location: login.php'); 
+        //redirect to login 
     }
 
     include __DIR__ . '/models/mdl_patients.php';
@@ -13,24 +14,29 @@ session_start();
     $searchFirst = "";
     $searchLast = "";
     $searchMar = "";
-
-
-    if(isPostRequest()){
+    //define empty search variables in case the user does not enter anything in the search inputs
 
 
 
+    if(isPostRequest()){ //if the page is POST
+
+        $searchFirst = filter_input(INPUT_POST, 'fNameInput');
+        $searchLast = filter_input(INPUT_POST, 'lNameInput');
+        $searchMar = filter_input(INPUT_POST, 'marInput');
+        //fill search variables with entered values (blank will just stay blank if the user doesn't enter values into a field)
         
         
-        if(isset($_POST['patientID'])){
+        if(isset($_POST['patientID'])){ //if the POST contains a user ID (this will only happen when the user clicks a delete button)
             $id = filter_input(INPUT_POST, 'patientID');
+                //grab ID passed in POST
             deletePatient($id);
+                //delete the record with the ID given in POST
         }
 
-    }//if the page is a post request, retrieve ID and delete the record of the corresponding id
-        //since the only time POST comes through for this page is when the user wants to delete a record
+    }
 
-    $patients = getPatients("", "", "");
-    //fetch all records in the table and store in var
+    $patients = getPatients($searchFirst, $searchLast, $searchMar);
+    //fetch all records in the table that fit search criteria and store in var
 ?>
 
 <!DOCTYPE html>
@@ -49,11 +55,16 @@ session_start();
 
             <table>
                 <tr>
-                    <td><input type="text" placeholder="First name"></td>
-                    <td><input type="text" placeholder="Last name"></td>
-                    <td><button type="submit">Submit</button>
+                    <form method='post' action='index.php'>
+                        <td><input type="text" placeholder="First name" name="fNameInput"></td>
+                        <td><input type="text" placeholder="Last name" name="lNameInput"></td>
+                        <td>Married? <input type="radio" name="marInput" value="1">Yes <input type="radio" name="marInput" value="0">No&nbsp;&nbsp;</td>
+                        <td><button type="submit">Search</button>
+                    </form>
                 </tr>
             </table>
+
+            <br />
 
             <table class='table table-striped'>
 
@@ -100,8 +111,11 @@ session_start();
 
             <br />
             <a href="addPatient.php?action=add" class="btn btn-secondary">Add Patient</a> <!--link to access the add patient page, sending the action (add) as well-->
+            <br /><br />
+            <a href="logout.php" class="btn btn-danger mb-3">Logout</a>
 
         </div>
+
     </div>
 </body>
 </html>

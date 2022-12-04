@@ -4,6 +4,12 @@
     include __DIR__ . '/postcheck.php';
     //include file with function to check for POST method
 
+    session_start();
+
+    if($_SESSION['loggedIn'] == FALSE OR !isset($_SESSION['loggedIn'])){ //if loggedIn is false or blank (if user is not logged in)
+        header('Location: login.php'); //redirect to login page
+    }
+
     if(isset($_GET['action'])) { //if GET has a value with the 'action' key
 
         $action = filter_input(INPUT_GET, 'action');
