@@ -106,8 +106,7 @@ session_start(); //open session
                         it contains a delete (submit) button and a hidden input containing the current row's ID to send in the POST data so that index knows what to delete-->
                     </tr>
                 <?php endforeach; ?>
-                </tbody>
-            </table>
+                </table>
 
             <br />
             <a href="addPatient.php?action=add" class="btn btn-secondary">Add Patient</a> <!--link to access the add patient page, sending the action (add) as well-->

@@ -38,7 +38,7 @@
         <li><a href="week3/atm_starter.php">Week 3 - ATM Simulation</a></li>
         <li><a href="week4">Week 4 - Patient CRUD</a></li>
         <li><a href="week6/login.php">Week 6 - Patient Search & Sessions</a></li>
-        <li><a href="#">Week 7</a></li>
+        <li><a href="week7/login.php">Week 7 - Schools Upload & Search</a></li>
         <li><a href="#">Week 8</a></li>
     </ul>
     <hr />
