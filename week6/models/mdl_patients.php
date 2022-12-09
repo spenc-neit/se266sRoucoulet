@@ -119,7 +119,7 @@
         
         return ($results); //return results
     }
-
+    
     function getAPatient($id){
         global $db; //use global var db
 
