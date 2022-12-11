@@ -1,7 +1,9 @@
 <?php
+    session_start();
+
     if($_SESSION['loggedIn'] == FALSE OR !isset($_SESSION['loggedIn'])){ //if loggedIn is false or blank (if user is not logged in)
         header('Location: login.php'); 
-        redirect to login 
+        //redirect to login 
         //this will run in every page the header is in
     }
     ?>
@@ -24,7 +26,7 @@
 <body>
 
 
-<nav class="navbar navbar-expand-lg justify-content-between navbar-dark bg-dark px-3">
+<nav class="navbar navbar-expand-lg justify-content-between navbar-dark bg-dark px-3" id='header'>
 
     <a class="navbar-brand mb-0 h1 fs-2.5" id='t' href='index.php'><b>Forums</b></a>
 

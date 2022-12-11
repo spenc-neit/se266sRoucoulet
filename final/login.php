@@ -48,11 +48,19 @@ if(isPostRequest()){
             justify-content:center;
             align-items:center;
         }
+        body{
+            background-image: url("images/background.png")
+        }
+        #loginBox{
+            margin:auto;
+            width:30%;
+            background-color:white;
+        }
     </style>
 </head>
 <body>
     
-    <div style='margin:auto;width:50%;'>
+    <div id="loginBox" class='p-2'>
 
         <?php if(isPostRequest()):?>
             <?php if(!$_SESSION['loggedIn']):?>
