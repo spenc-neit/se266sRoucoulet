@@ -22,6 +22,7 @@
             font-size:1.5rem;
         }
     </style>
+    <link rel='stylesheet' href='includes/styles.css'>
 </head>
 <body>
 
@@ -36,7 +37,7 @@
         </a>
         <div class='dropdown-menu' aria-labelledby='usersDropdown'>
             <a class='dropdown-item' href='VSDusers.php'>View & Search</a>
-            <a class='dropdown-item' href='AUusers.php'>Add</a>
+            <a class='dropdown-item' href='AUusers.php?action=add'>Add</a>
         </div>
     </div>
 
@@ -46,7 +47,7 @@
         </a>
         <div class='dropdown-menu' aria-labelledby='bridgeDropdown'>
             <a class='dropdown-item' href='VSDbridge.php'>View & Search</a>
-            <a class='dropdown-item' href='AUbridge.php'>Add</a>
+            <a class='dropdown-item' href='AUbridge.php?action=add'>Add</a>
         </div>
     </div>
 
@@ -56,7 +57,7 @@
         </a>
         <div class='dropdown-menu' aria-labelledby='forumsDropdown'>
             <a class='dropdown-item' href='VSDforums.php'>View & Search</a>
-            <a class='dropdown-item' href='AUforums.php'>Add</a>
+            <a class='dropdown-item' href='AUforums.php?action=add'>Add</a>
         </div>
     </div>
 

@@ -4,7 +4,7 @@
     "version": "2.0.0",
     "tasks": [
         {
-            "label": "Open PHP Server",
+            "label": "Open PHP Server (desktop)",
             "command": "Chrome",
             "windows": {
                 "command": "C:\\Users\\spenc\\AppData\\Local\\Programs\\Opera GX\\opera.exe"
@@ -18,6 +18,23 @@
                 "panel": "dedicated",
             },
             "problemMatcher": []
+        },
+        {
+            "label": "Open PHP Server (laptop)",
+            "command": "Chrome",
+            "windows": {
+                "command": "C:\\Program Files\\Mozilla Firefox\\firefox.exe"
+            },
+            "args": [
+                "http://localhost/se266/se266sRoucoulet/${relativeFile}"
+            ],
+            "presentation": {
+                "echo": false,
+                "reveal": "never",
+                "panel": "dedicated",
+            },
+            "problemMatcher": []
         }
     ]
+
 }

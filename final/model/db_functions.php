@@ -112,6 +112,8 @@ function getForums($title, $category){
         $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
+    return($results);
+
 }
 
 function getBridges($userID, $forumID){
@@ -122,7 +124,7 @@ function getBridges($userID, $forumID){
 
     $first = TRUE;
 
-    $sql = "SELECT userID, forumID FROM bridge";
+    $sql = "SELECT userID, forumID, bridgeID FROM bridge";
 
     if($first AND $userID != ""){
         $first = FALSE;
@@ -157,13 +159,15 @@ function deleteRecord($id, $tableName){
     $results = "Data was not deleted";
 
     switch($tableName){
-        case "forum_users":
         case "bridge":
+            $idField = 'bridgeID';
+            break;
+        case "forum_users":
             $idField = 'userID';
-            break:
+            break;
         case "forums":
             $idField = 'forumID';
-            break:
+            break;
     }
 
     $stmt = $db->prepare("DELETE FROM $tableName WHERE $idField = :bID");
@@ -189,8 +193,8 @@ function getARecord($id, $tableName){
             $idField = "userID";
             break;
         case 'bridge':
-            $fields = "userID, forumID";
-            $idField = "userID";
+            $fields = "bridgeID, userID, forumID";
+            $idField = "bridgeID";
             break;
         case 'forums':
             $fields = "forumID, creator, title, category, created, pinned, openToReply, amtReplies, lastPost";
@@ -209,45 +213,47 @@ function getARecord($id, $tableName){
     return ($results);
 }
 
-function addAForumUser($data){
+function addARecord($data){
     global $db;
+
+    print_r($data);
 
     switch(count($data)){
         case 9:
-            $sql = "INSERT INTO forum_users SET username = :bUN, pass = :bPW, email = :bEM, verified = :bVF, birthday = :bBD, joined = :bDJ, userRank = :bRK, amtPosts = :bAP, privilege = :bPV"
+            $sql = "INSERT INTO forum_users SET username = :bUN, pass = :bPW, email = :bEM, verified = :bVF, birthday = :bBD, joined = :bDJ, userRank = :bRK, amtPosts = :bAP, privilege = :bPV";
             $binds = array(
-                ":bUN" => $data[0];
-                ":bPW" => $data[1];
-                ":bEM" => $data[2];
-                ":bVF" => $data[3];
-                ":bBD" => $data[4];
-                ":bDJ" => $data[5];
-                ":bRK" => $data[6];
-                ":bAP" => $data[7];
-                ":bPV" => $data[8];
-            )
+                ":bUN" => $data[0],
+                ":bPW" => $data[1],
+                ":bEM" => $data[2],
+                ":bVF" => $data[3],
+                ":bBD" => $data[4],
+                ":bDJ" => $data[5],
+                ":bRK" => $data[6],
+                ":bAP" => $data[7],
+                ":bPV" => $data[8]
+            );
             break;
 
         case 2:
             $sql = 'INSERT INTO bridge SET userID = :bUID, forumID = :bFID';
             $binds = array(
-                ":bUID" => $data[0];
-                ":bFID" => $data
-            )
+                ":bUID" => $data[0],
+                ":bFID" => $data[1]
+            );
             break;
 
         case 8:
             $sql = 'INSERT INTO forums SET creator = :bCR, title = :bTL, category = :bCG, created = :bCD, pinned = :bPD, openToReply = :bOR, amtReplies = :bAR, lastPost = :bLP';
             $binds = array(
-                ":bCR" => $data[0];
-                ":bTL" => $data[1];
-                ":bCG" => $data[2];
-                ":bCD" => $data[3];
-                ":bPD" => $data[4];
-                ":bOR" => $data[5];
-                ":bAR" => $data[6];
-                ":bLP" => $data[7];
-            )
+                ":bCR" => $data[0],
+                ":bTL" => $data[1],
+                ":bCG" => $data[2],
+                ":bCD" => $data[3],
+                ":bPD" => $data[4],
+                ":bOR" => $data[5],
+                ":bAR" => $data[6],
+                ":bLP" => $data[7]
+            );
             break;
     }
 
@@ -258,4 +264,119 @@ function addAForumUser($data){
     }
 
     return ($results);
+}
+
+function updateARecord($data){
+    global $db;
+
+    switch(count($data)){
+        case 10:
+            $sql = "UPDATE forum_users SET username = :bUN, pass = :bPW, email = :bEM, verified = :bVF, birthday = :bBD, joined = :bDJ, userRank = :bRK, amtPosts = :bAP, privilege = :bPV WHERE userID = :bID";
+            $binds = array(
+                ":bUN" => $data[0],
+                ":bPW" => $data[1],
+                ":bEM" => $data[2],
+                ":bVF" => $data[3],
+                ":bBD" => $data[4],
+                ":bDJ" => $data[5],
+                ":bRK" => $data[6],
+                ":bAP" => $data[7],
+                ":bPV" => $data[8],
+                ":bID" => $data[9]
+            );
+            break;
+
+        case 3:
+            $sql = 'INSERT INTO bridge SET userID = :bUID, forumID = :bFID WHERE bridgeID = :bBID';
+            $binds = array(
+                ":bUID" => $data[0],
+                ":bFID" => $data[1],
+                ":bBID" => $data[2]
+            );
+            break;
+
+        case 9:
+            $sql = 'UPDATE forums SET creator = :bCR, title = :bTL, category = :bCG, created = :bCD, pinned = :bPD, openToReply = :bOR, amtReplies = :bAR, lastPost = :bLP WHERE forumID = :bID';
+            $binds = array(
+                ":bCR" => $data[0],
+                ":bTL" => $data[1],
+                ":bCG" => $data[2],
+                ":bCD" => $data[3],
+                ":bPD" => $data[4],
+                ":bOR" => $data[5],
+                ":bAR" => $data[6],
+                ":bLP" => $data[7],
+                ":bID" => $data[8]
+            );
+            break;
+    }
+
+    $stmt = $db->prepare($sql);
+
+    if($stmt->execute($binds) AND $stmt->rowCount() > 0){
+        $results = 'Data updated';
+    }
+
+    return ($results);
+
+}
+
+function getUsername($uID){
+    global $db;
+
+    $stmt = $db->prepare("SELECT username FROM forum_users WHERE userID = :bID");
+
+    $binds = array(":bID" => $uID);
+
+    if($stmt->execute($binds) AND $stmt->rowCount() > 0){
+        $results = $stmt->fetch(PDO::PARAM_STR);
+    }
+
+    return ($results);
+}
+
+function getTitle($fID){
+    global $db;
+
+    $stmt = $db->prepare("SELECT title FROM forums WHERE forumID = :bID");
+
+    $binds = array(":bID" => $fID);
+
+    if($stmt->execute($binds) AND $stmt->rowCount() > 0){
+        $results = $stmt->fetch(PDO::PARAM_STR);
+    }
+
+    return ($results);
+}
+
+function isValidUID($id){
+    global $db;
+
+    $stmt = $db->prepare("SELECT username FROM forum_users WHERE userID = :bID");
+
+    $binds = array(":bID" => $id);
+
+    if($stmt->execute($binds) AND $stmt->rowCount() > 0){
+        $results = TRUE;
+    } else{
+        $results = FALSE;
+    }
+
+    return($results);
+}
+
+function isValidFID($id){
+    global $db;
+
+    $stmt = $db->prepare("SELECT title FROM forums WHERE forumID = :bID");
+
+    $binds = array(":bID" => $id);
+
+    if($stmt->execute($binds) AND $stmt->rowCount() > 0){
+        $results = TRUE;
+    } else{
+        $results = FALSE;
+    }
+
+    return($results);
 }

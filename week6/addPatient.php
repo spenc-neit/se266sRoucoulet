@@ -4,6 +4,13 @@
     include __DIR__ . '/postcheck.php';
     //include file with function to check for POST method
 
+    echo '<pre style="background-color:white;">';
+echo 'post';
+var_dump($_POST);
+echo 'get';
+var_dump($_GET);
+echo '</pre>';
+
     session_start();
 
     if($_SESSION['loggedIn'] == FALSE OR !isset($_SESSION['loggedIn'])){ //if loggedIn is false or blank (if user is not logged in)
@@ -88,6 +95,7 @@
 </head>
 <body>
 <div class='container'>
+
 
     <?php if (($action == 'add') OR (empty($_GET) AND empty($_POST))):?> <!--if the passed action is 'add' or *both* GET and POST are empty (see above 4-line comment)-->
         <h2>Add Patient</h2>

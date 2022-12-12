@@ -17,7 +17,7 @@ if(isPostRequest()){
 
     if(isset($_POST['userID'])){
         $id = filter_input(INPUT_POST, 'userID');
-        deleteARecord($userID, 'forum_users');
+        deleteRecord($id, 'forum_users');
         $deleted = 1;
     }
 }
@@ -32,24 +32,6 @@ $users = getForumUsers($searchUsername, $searchEmail, $searchPriv);
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <style>
-        html, body{
-            margin:0;
-            padding:0;
-        }
-        body{
-            background-image: url("images/background.png")
-        }
-        #cont{
-            width: 75%;
-            padding-right: 15px;
-            padding-left: 15px;
-            margin-right: auto;
-            margin-left: auto;
-            background-color:white;
-            overflow-y:scroll;
-        }
-    </style>
     <script>
         var header = document.querySelector('#header')
         var headerHeight = header.offsetHeight
@@ -85,6 +67,7 @@ $users = getForumUsers($searchUsername, $searchEmail, $searchPriv);
                         <select class='form-control' name='inputPriv' id='inputPriv'>
                             <option value=''></option>
                             <option value='owner'>Owner</option>
+                            <option value='general'>General</option>
                         </select>
                     </td>
                 </tr>

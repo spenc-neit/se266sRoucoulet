@@ -1,0 +1,17 @@
+html, body{
+    margin:0;
+    padding:0;
+}
+body{
+    background-image: url("../images/background.png")
+}
+#cont{
+    width: 75%;
+    padding-right: 15px;
+    padding-left: 15px;
+    margin-right: auto;
+    margin-left: auto;
+    background-color:white;
+    overflow-y:scroll;
+}
+
