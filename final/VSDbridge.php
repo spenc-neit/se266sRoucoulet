@@ -1,26 +1,30 @@
 <?php
 
-include_once __DIR__ . '/includes/header.php';
+include_once __DIR__ . '/includes/header.php';//header contains navbar, login check, and session start
 include __DIR__ . '/model/db_functions.php';
 include __DIR__ . '/includes/postcheck.php';
 
 $searchUID = "";
 $searchFID = "";
+//init empty search values
 
 $deleted = 0;
+//init empty bool to tell JS if a record was deleted (so it knows whether or not to display an alert)
 
-if(isPostRequest()){
+if(isPostRequest()){ //if POST
     $searchUID = filter_input(INPUT_POST, 'inputUID');
     $searchFID = filter_input(INPUT_POST, 'inputFID');
+    //grab the values the user sent in from POST and put in vars
 
-    if(isset($_POST['bridgeID'])){
-        $id = filter_input(INPUT_POST, 'bridgeID');
-        deleteRecord($id, 'bridge');
-        $deleted = 1;
+    if(isset($_POST['bridgeID'])){ //if there is a specific ID sent in
+        //this will only happen when the user clicks the trash icon to delete a record
+        $id = filter_input(INPUT_POST, 'bridgeID'); //grab ID
+        deleteRecord($id, 'bridge'); //delete the user corresponding to the ID, specifying the right table
+        $deleted = 1; //confirm the record was deleted to the JS
     }
 }
 
-$bridges = getBridges($searchUID, $searchFID);
+$bridges = getBridges($searchUID, $searchFID); //search for records matching the search criteria passed in from the POST form
 
 ?>
 
@@ -47,6 +51,7 @@ $bridges = getBridges($searchUID, $searchFID);
     
     <div class='h-100' id='cont'>
         <input type='hidden' id='deleted' value='<?=$deleted?>'></input>
+        <!--hidden input to keep track of the deleted bool for the JS to grab and check-->
 
         <h1 class='my-2'>View & Search - Bridge</h1>
         <h4 class='mb-2'>The point of this table is to catalog which users are part of which forums.</h3>
@@ -66,8 +71,10 @@ $bridges = getBridges($searchUID, $searchFID);
                 </tr>
             </table>
         </form>
+        <!--search bar form-->
 
         <p><?=count($bridges)?> matching bridge records were found.</p>
+        <!--little p tag to say how many records were found matching search criteria-->
 
         <table class='table table-striped'>
             <tr>
@@ -82,10 +89,10 @@ $bridges = getBridges($searchUID, $searchFID);
             <?php foreach($bridges as $row):?>
                 <tr>
                     <td><?=$row['bridgeID']?></td>
-                    <td><?=getUsername($row['userID'])['username']?></td>
+                    <td><?=getUsername($row['userID'])['username']?></td><!--a cell saying which username the relevant ID belongs to for better user-friendliness-->
                     <td><?=$row['userID']?></td>
                     <td><?=$row['forumID']?></td>
-                    <td><?=getTitle($row['forumID'])['title']?></td>
+                    <td><?=getTitle($row['forumID'])['title']?></td><!--a cell saying which forum title the relevant ID belongs to for better user-friendliness-->
                     <td>
                         <button onclick="window.location.href='AUbridge.php?action=update&bridgeID=<?=$row['bridgeID']?>';" class='btn'>✎</button>
                         <form action="VSDbridge.php" method="post">
@@ -95,6 +102,7 @@ $bridges = getBridges($searchUID, $searchFID);
                     </td>
                 </tr>
             <?php endforeach;?>
+            <!--loop through the records found in the search and display them as table rows, along with buttons to edit or delete each record-->
         </table>
                 
 
@@ -105,7 +113,7 @@ $bridges = getBridges($searchUID, $searchFID);
         var delCheck = document.querySelector('#deleted').getAttribute('value')
         if(delCheck == 1){
             alert("Record was deleted.")
-        }
+        }//if a record was deleted send an alert confirming this in JS
     </script>
 
 </body>

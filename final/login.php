@@ -8,23 +8,26 @@ session_start();
 if(isPostRequest()){
     $username = filter_input(INPUT_POST, 'inputUN');
     $password = filter_input(INPUT_POST, 'inputPW');
+    //grab the username and password submitted by user
 
-    $search = getALogin($username);
+    $search = getALogin($username); //get login corresponding to username
 
-    if($search != "No user with that name found."){
+    if($search != "No user with that name found."){//if the search finds one
         $salt = $search['salt'];
         $enc = $search['encPass'];
+        //grab salt and encrypted password
 
-        if(sha1($password.$salt) == $enc){
+        if(sha1($password.$salt) == $enc){ //if the encrypted pass+salt is the same as the enc password from the db
             $_SESSION['username'] = $username;
             $_SESSION['loggedIn'] = TRUE;
 
             header('Location: VSDusers.php');
+            //log the user in and redirect
         } else {
             $_SESSION['loggedIn'] = FALSE;
         }
     } else {
-        $_SESSION['loggedIn'] = FALSE;
+        $_SESSION['loggedIn'] = FALSE;//explicitly deny the user for a certain html element to appear when the page relaods
     }
 }
 
@@ -63,7 +66,7 @@ if(isPostRequest()){
     <div id="loginBox" class='p-2'>
 
         <?php if(isPostRequest()):?>
-            <?php if(!$_SESSION['loggedIn']):?>
+            <?php if(!$_SESSION['loggedIn']):?><!--only appears if the user fails to log in somehow-->
                 <div class='alert alert-danger mt-2' role='alert'>The username was not found, or the password was incorrect.</div>
             <?php endif;?>
         <?php endif;?>

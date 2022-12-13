@@ -1,5 +1,9 @@
 <?php
 
+//!!!!!-----------------------------------------------------------------------------------------------------------------------------------------------------!!!!!
+//  check AUbridge.php for full documentation! the two pages work almost exactly the same but for different tables. differences will be touched upon here though.
+//!!!!!-----------------------------------------------------------------------------------------------------------------------------------------------------!!!!!
+
 include_once 'includes/header.php';
 include_once __DIR__ . '/model/db_functions.php';
 include_once __DIR__ . '/includes/postcheck.php';
@@ -226,6 +230,7 @@ if(empty($_GET) AND empty($_POST)){
                         </select>
                     <?php break;
                 endswitch;?>
+                <!--switch for making the right value selected in the dropdown depending on which is in the record-->
 
             </div>
 
@@ -235,6 +240,12 @@ if(empty($_GET) AND empty($_POST)){
     </div>
 
     <?php include_once 'includes/footer.php';?>
+
+<!-- 
+!!!!!-----------------------------------------------------------------------------------------------------------------------------------------------------!!!!!
+  check AUbridge.php for full documentation! the two pages work almost exactly the same but for different tables. differences will be touched upon here though.
+!!!!!-----------------------------------------------------------------------------------------------------------------------------------------------------!!!!! 
+-->
 
 </body>
 </html>

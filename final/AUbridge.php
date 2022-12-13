@@ -1,6 +1,10 @@
 <?php
 
-include_once 'includes/header.php';
+//!!!!!-----------------------------------------------------------------------------------------------------------------------------------------------------!!!!!
+//  this page also serves as documentation for the other AU pages, since they all work fundamentally the same but with different tables and data to account for
+//!!!!!-----------------------------------------------------------------------------------------------------------------------------------------------------!!!!!
+
+include_once 'includes/header.php'; //header is navbar, has check to see if user is logged in, and starts session
 include_once __DIR__ . '/model/db_functions.php';
 include_once __DIR__ . '/includes/postcheck.php';
 
@@ -13,38 +17,42 @@ include_once __DIR__ . '/includes/postcheck.php';
 
 $badUID = 0;
 $badFID = 0;
+//init values for JS to check and see if the values are bad. if they are bad, JS sends alert(s) telling the user
 
-if(isset($_GET['action'])){
-    $action = filter_input(INPUT_GET, 'action');
-    $id = filter_input(INPUT_GET, 'bridgeID');
+if(isset($_GET['action'])){ //if GET and has an action
+    $action = filter_input(INPUT_GET, 'action'); //grab action and put in var
+    $id = filter_input(INPUT_GET, 'bridgeID'); //grab passed ID and put in var
 
-    if($action == 'update'){
+    if($action == 'update'){ //if action is update
         $row = getARecord($id, 'bridge');
         $uID = $row['userID'];
         $fID = $row['forumID'];
-    } else {
+        //grab a record, and set variables for each piece of data in the record
+    } else { //if it's not update
         $uID = '';
         $fID = '';
+        //set empty vars
     }
-} elseif (isset($_POST['action'])){
+} elseif (isset($_POST['action'])){ //if there's a POST action (aka for sticking values)
     $action = filter_input(INPUT_POST, 'action');
     $id = filter_input(INPUT_POST, 'bridgeID');
     $uID = filter_input(INPUT_POST, 'inputUID');
     $fID = filter_input(INPUT_POST, 'inputFID');
+    //grab values and set into vars
 }
 
-if(isPostRequest() AND $action == 'add'){
-    if(!isValidUID((int)$uID) OR !isValidFID((int)$fID)){
+if(isPostRequest() AND $action == 'add'){ //if the page is sent POST and is going to add a record
+    if(!isValidUID((int)$uID) OR !isValidFID((int)$fID)){ //check both entered IDs to see if they're invalid. if they are invalid:
         if(!isValidFID((int)$fID)){
-            $badFID = 1;
+            $badFID = 1; //set value to 1 if the forum ID is bad
         }
         if(!isValidUID((int)$uID)){
-            $badUID = 1;
+            $badUID = 1; //set value to 1 if the user ID is bad
         }
-    } else{
-        $dataPara = array($uID, $fID);
-        $result = addARecord($dataPara);
-        header('Location: VSDbridge.php');
+    } else{ //if they are good
+        $dataPara = array($uID, $fID);//set list to send into func
+        $result = addARecord($dataPara);//add record using list
+        header('Location: VSDbridge.php');//redirect to the view page
     }
 
 
@@ -55,19 +63,19 @@ if(isPostRequest() AND $action == 'add'){
         }
         if(!isValidUID($uID)){
             $badUID = 1;
-        }
+        }//same ID checking as above
     } else{
         $dataPara = array($uID, $fID, $id);
         $result = updateARecord($dataPara);
         header('Location: VSDbridge.php');
-    }
+    }//same process as above, but for updating
 }
 
 if(empty($_GET) AND empty($_POST)){
     $fID = '';
     $uID = '';
     $action = '';
-}
+}//unusual case. hopefully only comes up during testing.
 
 ?>
 
@@ -92,6 +100,9 @@ if(empty($_GET) AND empty($_POST)){
         var newHeight = htmlHeight - headerHeight
         html.style.height = String(newHeight + 'px')
         body.style.height = String(newHeight + 'px')
+        //code to set the height of the page to '100% - height of header'
+        //otherwise, height:100%; makes the page as long as the viewpage + the header and forces a scrollbar
+        //I hate it and I'm glad I made this JS
     </script>
 </head>
 <body>
@@ -110,6 +121,7 @@ if(empty($_GET) AND empty($_POST)){
             <input type='hidden' name='badFID' id='badFID' value='<?=$badFID?>'>
             <input type='hidden' name='action' value='<?=$action?>'>
             <input type='hidden' name='bridgeID' value='<?=$id?>'>
+            <!--hidden inputs to keep track of values across POST requests and reloads-->
 
             <div class='form-group'>
                 <label class='control-label' for='inputUID'>User ID:</label>
@@ -160,6 +172,8 @@ if(empty($_GET) AND empty($_POST)){
                     <?php endforeach;?>
                 </table>
             </div>
+
+            <!--get all valid forum and user IDs and display them in small tables at the bottom of the page for better user experience-->
         
 
         </div>
@@ -170,13 +184,13 @@ if(empty($_GET) AND empty($_POST)){
         var badUID = document.querySelector('#badUID').getAttribute('value')
         console.log(badUID)
         if(badUID == 1){
-            alert("Users ID number does not match an existing user. Please enter a valid ID. For list of valid IDs, check the View & Search page for the Users table.")
-        }
+            alert("Users ID number does not match an existing user. Please enter a valid ID. For a list of valid IDs, check the list at the bottom of the page.")
+        }//if the userID is bad, display an alert saying so
         var badFID = document.querySelector('#badFID').getAttribute('value')
         console.log(badFID)
         if(badFID == 1){
-            alert("Forum ID number does not match an existing forum. Please enter a valid ID. For list of valid IDs, check the View & Search page for the Forums table.")
-        }
+            alert("Forum ID number does not match an existing forum. Please enter a valid ID. For list of valid IDs, check the list at the bottom of the page.")
+        }//if the forumID is bad, display an alert saying so
     </script>
 
     <?php include_once 'includes/footer.php';?>

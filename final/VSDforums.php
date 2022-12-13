@@ -1,5 +1,9 @@
 <?php
 
+//!!!!!------------------------------------------------------------------------------------------------------------------------------------------------------!!!!!
+//  check VSDbridge.php for full documentation! the two pages work almost exactly the same but for different tables. differences will be touched upon here though.
+//!!!!!------------------------------------------------------------------------------------------------------------------------------------------------------!!!!!
+
 include_once __DIR__ . '/includes/header.php';
 include __DIR__ . '/model/db_functions.php';
 include __DIR__ . '/includes/postcheck.php';
@@ -97,7 +101,7 @@ $forums = getForums($searchTitle, $searchCategory);
             <tr>
                 <td><?=$row['forumID']?></td>            
                 <td><?=$row['title']?></td>
-                <td><?=getUsername($row['creator'])['username']?> - ID #<?=$row['creator']?></td>
+                <td><?=getUsername($row['creator'])['username']?> - ID #<?=$row['creator']?></td><!--display ID, but also display the username associated with it-->
                 <td><?=$row['category']?></td>
                 <td><?=$row['created']?></td>
                 <td>
@@ -135,6 +139,12 @@ $forums = getForums($searchTitle, $searchCategory);
             alert("Record was deleted.")
         }
     </script>
+
+<!-- 
+!!!!!------------------------------------------------------------------------------------------------------------------------------------------------------!!!!!
+  check VSDbridge.php for full documentation! the two pages work almost exactly the same but for different tables. differences will be touched upon here though.
+!!!!!------------------------------------------------------------------------------------------------------------------------------------------------------!!!!!
+-->
 
 </body>
 </html>

@@ -1,5 +1,9 @@
 <?php
 
+//!!!!!-----------------------------------------------------------------------------------------------------------------------------------------------------!!!!!
+//  check AUbridge.php for full documentation! the two pages work almost exactly the same but for different tables. differences will be touched upon here though.
+//!!!!!-----------------------------------------------------------------------------------------------------------------------------------------------------!!!!!
+
 include_once 'includes/header.php';
 include_once __DIR__ . '/model/db_functions.php';
 include_once __DIR__ . '/includes/postcheck.php';
@@ -140,12 +144,12 @@ if(empty($_GET) AND empty($_POST)){
                 <input type='text' name='inputCR' value='<?=$CR?>' placeholder='User ID goes here. Refer to table below for valid IDs' class='form-control' required>
                 <?php if($action == 'update'):?>
                     <small class='control-label text-muted'>User #<?=$CR?>: <?=getUsername($CR)['username']?></small>
+                    <!--make small label telling the user which username corresponds to the ID, if the page is 'update'-->
                 <?php endif;?>
             </div>
 
             <div class='form-group'>
                 <label class='control-label' for='inputCG'>Category:</label>
-                <!-- <input type='text' name='inputCG' value='<?=$CG?>' class='form-control'> -->
 
                 <?php switch($CG):
                     case('meta'):?>
@@ -225,6 +229,7 @@ if(empty($_GET) AND empty($_POST)){
                         </select>
                     <?php break;
                 endswitch;?>
+                <!--switch for making the right value selected in the dropdown depending on which is in the record-->
                 
             </div>
 
@@ -241,6 +246,8 @@ if(empty($_GET) AND empty($_POST)){
                     <input type='checkbox' name='inputPD' value='1' class='form-control col-sm-2'>
                 <?php endif;?>
             </div>
+
+            <!--if statements for checkbox display-->
 
             <div class='form-group'>
                 <label class='control-label' for='inputOR'>Open to replies?</label>
@@ -285,6 +292,7 @@ if(empty($_GET) AND empty($_POST)){
                     <?php endforeach;?>
                 </table>
             </div>
+            <!--display a small table with all valid UserIDs for better user experience-->
 
         <?php include_once 'includes/footer.php';?>
 
@@ -297,6 +305,12 @@ if(empty($_GET) AND empty($_POST)){
             alert("Creator's ID number does not match an existing user. Please enter a valid ID. For list of valid IDs, check the View & Search page for the Users table.")
         }
     </script>
+
+<!-- 
+!!!!!-----------------------------------------------------------------------------------------------------------------------------------------------------!!!!!
+  check AUbridge.php for full documentation! the two pages work almost exactly the same but for different tables. differences will be touched upon here though.
+!!!!!-----------------------------------------------------------------------------------------------------------------------------------------------------!!!!! 
+-->
 
 
 </body>
