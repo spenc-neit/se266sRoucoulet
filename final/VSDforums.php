@@ -63,6 +63,10 @@ $forums = getForums($searchTitle, $searchCategory);
                             <option value='' selected></option>    
                             <option value='meta'>Meta</option>
                             <option value='general'>General</option>
+                            <option value='support'>Support</option>
+                            <option value='news'>News</option>
+                            <option value='hobbies'>Hobbies</option>
+                            <option value='debate'>Debate</option>
                         </select>
                     </td>
                 </tr>

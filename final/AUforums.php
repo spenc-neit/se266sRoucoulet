@@ -67,6 +67,8 @@ if(isPostRequest() AND $action == 'add'){
     if(isValidUID($CR)){
         $dataPara = array($CR, $TL, $CG, $CD, $PD, $OR, $AR, $LP, $id);
         $result = updateARecord($dataPara);
+        header('Location: VSDforums.php');
+
     } else {
         $badUID = 1;
     }
@@ -135,7 +137,7 @@ if(empty($_GET) AND empty($_POST)){
 
             <div class='form-group'>
                 <label class='control-label' for='inputCR'>Creator:</label>
-                <input type='text' name='inputCR' value='<?=$CR?>' class='form-control' required>
+                <input type='text' name='inputCR' value='<?=$CR?>' placeholder='User ID goes here. Refer to table below for valid IDs' class='form-control' required>
                 <?php if($action == 'update'):?>
                     <small class='control-label text-muted'>User #<?=$CR?>: <?=getUsername($CR)['username']?></small>
                 <?php endif;?>
@@ -150,18 +152,76 @@ if(empty($_GET) AND empty($_POST)){
                         <select name='inputCG' class='form-control'>
                             <option value='meta' selected>Meta</option>
                             <option value='general'>General</option>
+                            <option value='support'>Support</option>
+                            <option value='news'>News</option>
+                            <option value='hobbies'>Hobbies</option>
+                            <option value='debate'>Debate</option>
                         </select>
                     <?php break;
+
                     case('general'):?>
                         <select name='inputCG' class='form-control'>
                             <option value='meta'>Meta</option>
                             <option value='general' selected>General</option>
+                            <option value='support'>Support</option>
+                            <option value='news'>News</option>
+                            <option value='hobbies'>Hobbies</option>
+                            <option value='debate'>Debate</option>
                         </select>
                     <?php break;
+
+                    case('support'):?>
+                        <select name='inputCG' class='form-control'>
+                            <option value='meta'>Meta</option>
+                            <option value='general'>General</option>
+                            <option value='support' selected>Support</option>
+                            <option value='news'>News</option>
+                            <option value='hobbies'>Hobbies</option>
+                            <option value='debate'>Debate</option>
+                        </select>
+                    <?php break;
+
+                    case('news'):?>
+                        <select name='inputCG' class='form-control'>
+                            <option value='meta'>Meta</option>
+                            <option value='general'>General</option>
+                            <option value='support'>Support</option>
+                            <option value='news' selected>News</option>
+                            <option value='hobbies'>Hobbies</option>
+                            <option value='debate'>Debate</option>
+                        </select>
+                    <?php break;
+
+                    case('hobbies'):?>
+                        <select name='inputCG' class='form-control'>
+                            <option value='meta'>Meta</option>
+                            <option value='general'>General</option>
+                            <option value='support'>Support</option>
+                            <option value='news'>News</option>
+                            <option value='hobbies' selected>Hobbies</option>
+                            <option value='debate'>Debate</option>
+                        </select>
+                    <?php break;
+
+                    case('debate'):?>
+                        <select name='inputCG' class='form-control'>
+                            <option value='meta'>Meta</option>
+                            <option value='general'>General</option>
+                            <option value='support'>Support</option>
+                            <option value='news'>News</option>
+                            <option value='hobbies'>Hobbies</option>
+                            <option value='debate' selected>Debate</option>
+                        </select>
+                    <?php break;
+
                     default:?>
                         <select name='inputCG' class='form-control'>
                             <option value='meta'>Meta</option>
                             <option value='general' selected>General</option>
+                            <option value='support'>Support</option>
+                            <option value='news'>News</option>
+                            <option value='hobbies'>Hobbies</option>
+                            <option value='debate'>Debate</option>
                         </select>
                     <?php break;
                 endswitch;?>
@@ -205,10 +265,26 @@ if(empty($_GET) AND empty($_POST)){
                 <input type='date' name='inputLP' value='<?=$LP?>' class='form-control' required>
             </div>
 
-            <button type='submit' class='btn btn-outline-success mb-5'>Submit</button>
+            <button type='submit' class='btn btn-outline-success mb-3'>Submit</button>
 
 
         </form>
+
+            <div style='width:50%; height:50%; overflow-y:scroll;' class='mb-5 border rounded border-dark'>
+                <h3 style='text-align:center;' class=''>Valid User IDs</h3>
+                <table class='table table-striped'>
+                    <tr>
+                        <th>User ID</th>
+                        <th>Username</th>
+                    </tr>
+                    <?php foreach(getValidIDs('forum_users') as $row):?>
+                        <tr>
+                            <td><?=$row['userID']?></td>
+                            <td><?=$row['username']?></td>
+                        </tr>
+                    <?php endforeach;?>
+                </table>
+            </div>
 
         <?php include_once 'includes/footer.php';?>
 
@@ -221,6 +297,7 @@ if(empty($_GET) AND empty($_POST)){
             alert("Creator's ID number does not match an existing user. Please enter a valid ID. For list of valid IDs, check the View & Search page for the Users table.")
         }
     </script>
+
 
 </body>
 </html>

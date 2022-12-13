@@ -60,6 +60,7 @@ if(isPostRequest() AND $action == 'add'){
 } elseif (isPostRequest() AND $action == 'update'){
     $dataPara = array($UN, $PW, $EM, $VE, $BD, $DJ, $RK, $AP, $PV, $id);
     $result = updateARecord($dataPara);
+    header('Location: VSDUsers.php');
 }
 
 if(empty($_GET) AND empty($_POST)){
@@ -164,22 +165,64 @@ if(empty($_GET) AND empty($_POST)){
                 <label class='control-label' for='inputPV'>Privilege level:</label>
 
                 <?php switch ($PV):
+
                     case('default'):?>
                         <select name='inputPV' class='form-control'>
                             <option value='default' selected>Default</option>
                             <option value='owner'>Owner</option>
+                            <option value='moderator'>Moderator</option>
+                            <option value='admin'>Administrator</option>
+                            <option value='banned'>Banned</option>
                         </select>
                     <?php break;
+
                     case('Owner'):?>
                         <select name='inputPV' class='form-control'>
                             <option value='default'>Default</option>
                             <option value='owner' selected>Owner</option>
+                            <option value='moderator'>Moderator</option>
+                            <option value='admin'>Administrator</option>
+                            <option value='banned'>Banned</option>
                         </select>
                     <?php break;
+
+                    case('moderator'):?>
+                        <select name='inputPV' class='form-control'>
+                            <option value='default'>Default</option>
+                            <option value='owner'>Owner</option>
+                            <option value='moderator' selected>Moderator</option>
+                            <option value='admin'>Administrator</option>
+                            <option value='banned'>Banned</option>
+                        </select>
+                    <?php break;
+
+                    case('admin'):?>
+                        <select name='inputPV' class='form-control'>
+                            <option value='default'>Default</option>
+                            <option value='owner'>Owner</option>
+                            <option value='moderator'>Moderator</option>
+                            <option value='admin' selected>Administrator</option>
+                            <option value='banned'>Banned</option>
+                        </select>
+                    <?php break;
+
+                    case('banned'):?>
+                        <select name='inputPV' class='form-control'>
+                            <option value='default'>Default</option>
+                            <option value='owner'>Owner</option>
+                            <option value='moderator'>Moderator</option>
+                            <option value='admin'>Administrator</option>
+                            <option value='banned' selected>Banned</option>
+                        </select>
+                    <?php break;
+
                     default:?>
                         <select name='inputPV' class='form-control'>
                             <option value='default' selected>Default</option>
                             <option value='owner'>Owner</option>
+                            <option value='moderator'>Moderator</option>
+                            <option value='admin'>Administrator</option>
+                            <option value='banned'>Banned</option>
                         </select>
                     <?php break;
                 endswitch;?>

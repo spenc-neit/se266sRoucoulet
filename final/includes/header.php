@@ -29,7 +29,7 @@
 
 <nav class="navbar navbar-expand-lg justify-content-between navbar-dark bg-dark px-3" id='header'>
 
-    <a class="navbar-brand mb-0 h1 fs-2.5" id='t' href='index.php'><b>Forums</b></a>
+    <p class="navbar-brand mb-0 h1 fs-2.5" id='t'><b>Forums</b></a>
 
     <div class='nav-item dropdown border border-light rounded'>
         <a class='nav-link dropdown-toggle text-light' href="#" role='button' id='usersDropdown' data-toggle='dropdown' aria-haspopup='true' aria-expanded='false'>

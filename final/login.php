@@ -19,7 +19,7 @@ if(isPostRequest()){
             $_SESSION['username'] = $username;
             $_SESSION['loggedIn'] = TRUE;
 
-            header('Location: index.php');
+            header('Location: VSDusers.php');
         } else {
             $_SESSION['loggedIn'] = FALSE;
         }

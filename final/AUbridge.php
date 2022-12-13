@@ -47,25 +47,6 @@ if(isPostRequest() AND $action == 'add'){
         header('Location: VSDbridge.php');
     }
 
-    // if(isValidUID($uID)){
-    //     echo 'uID works';
-    //     var_dump($uID);
-    // }
-
-    // if(isValidFID($fID)){
-    //     echo 'fID works';
-    //     var_dump($fID);
-    // }
-
-    // if(!isValidUID($uID)){
-    //     echo 'uID does not works';
-    //     var_dump($uID);
-    // }
-
-    // if(!isValidFID($fID)){
-    //     echo 'fID does not works';
-    //     var_dump($fID);
-    // }
 
 } elseif (isPostRequest() AND $action == 'update'){
     if(!isValidUID($uID) OR !isValidFID($fID)){
@@ -78,6 +59,7 @@ if(isPostRequest() AND $action == 'add'){
     } else{
         $dataPara = array($uID, $fID, $id);
         $result = updateARecord($dataPara);
+        header('Location: VSDbridge.php');
     }
 }
 
@@ -121,25 +103,66 @@ if(empty($_GET) AND empty($_POST)){
         <?php elseif($action == 'update'):?> <!--if the passed action is 'update'-->
         <h1 class='my-2'>Update Bridge</h1>
         <?php endif;?>
+        <h4 class='mb-2'>The point of this table is to catalog which users are part of which forums.</h4>
 
         <form action='AUbridge.php' method='post' style='text-align:left;' class='form-horizontal'>
             <input type='hidden' name='badUID' id='badUID' value='<?=$badUID?>'>
             <input type='hidden' name='badFID' id='badFID' value='<?=$badFID?>'>
             <input type='hidden' name='action' value='<?=$action?>'>
-            <input type='hidden' name='forumID' value='<?=$id?>'>
+            <input type='hidden' name='bridgeID' value='<?=$id?>'>
 
             <div class='form-group'>
                 <label class='control-label' for='inputUID'>User ID:</label>
-                <input type='number' class='form-control' name='inputUID' id='inputUID' required value='<?$uID?>'>
+                <input type='number' class='form-control' name='inputUID' id='inputUID' required value='<?=$uID?>'>
             </div>
 
             <div class='form-group'>
                 <label class='control-label' for='inputFID'>Forum ID:</label>
-                <input type='number' class='form-control' name='inputFID' id='inputFID' required value='<?$fID?>'>
+                <input type='number' class='form-control' name='inputFID' id='inputFID' required value='<?=$fID?>'>
             </div>
 
             <button type='submit' class='btn btn-outline-success'>Submit</button>
         </form>
+
+        <br><br>
+
+        <div style='display:flex;width:100%;height:50%'>
+            <div style='width:47.5%; overflow-y:scroll;' class='border rounded border-dark'>
+                <h3 style='text-align:center;' class=''>Valid User IDs</h3>
+                <table class='table table-striped'>
+                    <tr>
+                        <th>User ID</th>
+                        <th>Username</th>
+                    </tr>
+                    <?php foreach(getValidIDs('forum_users') as $row):?>
+                        <tr>
+                            <td><?=$row['userID']?></td>
+                            <td><?=$row['username']?></td>
+                        </tr>
+                    <?php endforeach;?>
+                </table>
+            </div>
+
+            <div style='width:5%'></div>
+
+            <div style='width:47.5%;overflow-y:scroll;' class='border rounded border-dark'>
+                <h3 style='text-align:center;' class=''> Valid Forum IDs</h3>
+                <table class='table table-striped'>
+                    <tr>
+                        <th>Forum ID</th>
+                        <th>Title</th>
+                    </tr>
+                    <?php foreach(getValidIDs('forums') as $row):?>
+                        <tr>
+                            <td><?=$row['forumID']?></td>
+                            <td><?=$row['title']?></td>
+                        </tr>
+                    <?php endforeach;?>
+                </table>
+            </div>
+        
+
+        </div>
 
     </div>
 

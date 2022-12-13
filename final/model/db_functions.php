@@ -117,7 +117,6 @@ function getForums($title, $category){
 }
 
 function getBridges($userID, $forumID){
-
     global $db;
 
     $binds = array();
@@ -287,7 +286,7 @@ function updateARecord($data){
             break;
 
         case 3:
-            $sql = 'INSERT INTO bridge SET userID = :bUID, forumID = :bFID WHERE bridgeID = :bBID';
+            $sql = 'UPDATE bridge SET userID = :bUID, forumID = :bFID WHERE bridgeID = :bBID';
             $binds = array(
                 ":bUID" => $data[0],
                 ":bFID" => $data[1],
@@ -313,11 +312,13 @@ function updateARecord($data){
 
     $stmt = $db->prepare($sql);
 
+    
+
     if($stmt->execute($binds) AND $stmt->rowCount() > 0){
         $results = 'Data updated';
     }
 
-    return ($results);
+    //return ($results);
 
 }
 
@@ -376,6 +377,26 @@ function isValidFID($id){
         $results = TRUE;
     } else{
         $results = FALSE;
+    }
+
+    return($results);
+}
+
+function getValidIDs($table){
+    global $db;
+
+
+    switch($table){
+        case "forum_users":
+            $stmt = $db->prepare("SELECT userID, username FROM forum_users");
+            break;
+        case "forums";
+            $stmt = $db->prepare("SELECT forumID, title FROM forums");
+            break;
+    }
+
+    if($stmt->execute() AND $stmt->rowCount() > 0){
+        $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
     return($results);

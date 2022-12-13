@@ -11,7 +11,7 @@ $deleted = 0;
 
 if(isPostRequest()){
     $searchUID = filter_input(INPUT_POST, 'inputUID');
-    $searcHFID = filter_input(INPUT_POST, 'inputFID');
+    $searchFID = filter_input(INPUT_POST, 'inputFID');
 
     if(isset($_POST['bridgeID'])){
         $id = filter_input(INPUT_POST, 'bridgeID');
@@ -49,7 +49,7 @@ $bridges = getBridges($searchUID, $searchFID);
         <input type='hidden' id='deleted' value='<?=$deleted?>'></input>
 
         <h1 class='my-2'>View & Search - Bridge</h1>
-        <h4 class='mb-2'>The point of this table is to show which users are part of which forum.</h3>
+        <h4 class='mb-2'>The point of this table is to catalog which users are part of which forums.</h3>
 
         <form action='VSDbridge.php' method='post'>
             <table style='width:100%;'>

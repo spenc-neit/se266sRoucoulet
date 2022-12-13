@@ -67,7 +67,10 @@ $users = getForumUsers($searchUsername, $searchEmail, $searchPriv);
                         <select class='form-control' name='inputPriv' id='inputPriv'>
                             <option value=''></option>
                             <option value='owner'>Owner</option>
-                            <option value='general'>General</option>
+                            <option value='default'>Default</option>
+                            <option value='moderator'>Moderator</option>
+                            <option value='admin'>Administrator</option>
+                            <option value='banned'>Banned</option>
                         </select>
                     </td>
                 </tr>
