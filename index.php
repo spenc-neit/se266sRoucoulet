@@ -39,7 +39,7 @@
         <li><a href="week4">Week 4 - Patient CRUD</a></li>
         <li><a href="week6/login.php">Week 6 - Patient Search & Sessions</a></li>
         <li><a href="week7/login.php">Week 7 - Schools Upload & Search</a></li>
-        <li><b><a href="final/">Final Project - Forums Backend</a></b></li>
+        <li><b><a href="final/login.php">Final Project - Forums Backend</a></b></li>
     </ul>
     <hr />
     <footer>
