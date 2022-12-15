@@ -1,6 +1,6 @@
 <?php
 
-include_once (__DIR__ . '\db.php');
+include_once ('db.php');
 
 function getALogin($un){
     //password for spenc is 437
