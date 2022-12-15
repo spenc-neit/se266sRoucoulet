@@ -4,9 +4,9 @@
 //  check AUbridge.php for full documentation! the two pages work almost exactly the same but for different tables. differences will be touched upon here though.
 //!!!!!-----------------------------------------------------------------------------------------------------------------------------------------------------!!!!!
 
-include_once 'includes\header.php';
-include_once 'model\db_functions.php';
-include_once 'includes\postcheck.php';
+include_once 'includes/header.php';
+include_once 'model/db_functions.php';
+include_once 'includes/postcheck.php';
 
 // echo '<pre style="background-color:white;">';
 // echo 'post';
@@ -294,7 +294,7 @@ if(empty($_GET) AND empty($_POST)){
             </div>
             <!--display a small table with all valid UserIDs for better user experience-->
 
-        <?php include_once 'includes\footer.php';?>
+        <?php include_once 'includes/footer.php';?>
 
     </div>
 

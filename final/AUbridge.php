@@ -4,9 +4,9 @@
 //  this page also serves as documentation for the other AU pages, since they all work fundamentally the same but with different tables and data to account for
 //!!!!!-----------------------------------------------------------------------------------------------------------------------------------------------------!!!!!
 
-include_once 'includes\header.php'; //header is navbar, has check to see if user is logged in, and starts session
-include_once 'model\db_functions.php';
-include_once 'includes\postcheck.php';
+include_once 'includes/header.php'; //header is navbar, has check to see if user is logged in, and starts session
+include_once 'model/db_functions.php';
+include_once 'includes/postcheck.php';
 
 // echo '<pre style="background-color:white;">';
 // echo 'post';
@@ -193,7 +193,7 @@ if(empty($_GET) AND empty($_POST)){
         }//if the forumID is bad, display an alert saying so
     </script>
 
-    <?php include_once 'includes\footer.php';?>
+    <?php include_once 'includes/footer.php';?>
 
 </body>
 </html>
