@@ -1,7 +1,7 @@
 <?php
 
-include_once __DIR__ . '/includes/postcheck.php';
-include_once __DIR__ . '/model/db_functions.php';
+include_once 'includes/postcheck.php';
+include_once 'model/db_functions.php';
 
 session_start();
 

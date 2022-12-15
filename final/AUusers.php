@@ -5,8 +5,8 @@
 //!!!!!-----------------------------------------------------------------------------------------------------------------------------------------------------!!!!!
 
 include_once 'includes/header.php';
-include_once __DIR__ . '/model/db_functions.php';
-include_once __DIR__ . '/includes/postcheck.php';
+include_once 'model/db_functions.php';
+include_once 'includes/postcheck.php';
 
 // echo '<pre style="background-color:white;">';
 // echo 'post';

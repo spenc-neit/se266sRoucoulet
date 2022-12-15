@@ -1,8 +1,8 @@
 <?php
 
-include_once __DIR__ . '/includes/header.php';//header contains navbar, login check, and session start
-include __DIR__ . '/model/db_functions.php';
-include __DIR__ . '/includes/postcheck.php';
+include_once 'includes/header.php';//header contains navbar, login check, and session start
+include 'model/db_functions.php';
+include 'includes/postcheck.php';
 
 $searchUID = "";
 $searchFID = "";

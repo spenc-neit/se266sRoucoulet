@@ -5,8 +5,8 @@
 //!!!!!-----------------------------------------------------------------------------------------------------------------------------------------------------!!!!!
 
 include_once 'includes/header.php'; //header is navbar, has check to see if user is logged in, and starts session
-include_once __DIR__ . '/model/db_functions.php';
-include_once __DIR__ . '/includes/postcheck.php';
+include_once 'model/db_functions.php';
+include_once 'includes/postcheck.php';
 
 // echo '<pre style="background-color:white;">';
 // echo 'post';

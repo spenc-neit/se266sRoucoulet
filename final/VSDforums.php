@@ -4,9 +4,9 @@
 //  check VSDbridge.php for full documentation! the two pages work almost exactly the same but for different tables. differences will be touched upon here though.
 //!!!!!------------------------------------------------------------------------------------------------------------------------------------------------------!!!!!
 
-include_once __DIR__ . '/includes/header.php';
-include __DIR__ . '/model/db_functions.php';
-include __DIR__ . '/includes/postcheck.php';
+include_once 'includes/header.php';
+include 'model/db_functions.php';
+include 'includes/postcheck.php';
 
 $searchTitle = "";
 $searchCategory = "";
