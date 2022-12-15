@@ -4,9 +4,9 @@
 //  check VSDbridge.php for full documentation! the two pages work almost exactly the same but for different tables. differences will be touched upon here though.
 //!!!!!------------------------------------------------------------------------------------------------------------------------------------------------------!!!!!
 
-include_once 'includes/header.php';
-include 'model/db_functions.php';
-include 'includes/postcheck.php';
+include_once 'includes\header.php';
+include 'model\db_functions.php';
+include 'includes\postcheck.php';
 
 $searchTitle = "";
 $searchCategory = "";
@@ -131,7 +131,7 @@ $forums = getForums($searchTitle, $searchCategory);
         <?php endforeach;?>
     </div>
 
-    <?php include_once 'includes/footer.php';?>
+    <?php include_once 'includes\footer.php';?>
 
     <script>
         var delCheck = document.querySelector('#deleted').getAttribute('value')

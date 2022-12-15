@@ -1,8 +1,8 @@
 <?php
 
-include_once 'includes/header.php';//header contains navbar, login check, and session start
-include 'model/db_functions.php';
-include 'includes/postcheck.php';
+include_once 'includes\header.php';//header contains navbar, login check, and session start
+include 'model\db_functions.php';
+include 'includes\postcheck.php';
 
 $searchUID = "";
 $searchFID = "";
@@ -107,7 +107,7 @@ $bridges = getBridges($searchUID, $searchFID); //search for records matching the
                 
 
 
-    <?php include_once 'includes/footer.php';?>
+    <?php include_once 'includes\footer.php';?>
 
     <script>
         var delCheck = document.querySelector('#deleted').getAttribute('value')
